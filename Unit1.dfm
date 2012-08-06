@@ -30,21 +30,22 @@ object Form1: TForm1
     TabOrder = 1
     Text = 'F:\Work\Project\GTBrowser\WebGamegt\bin\WebGamegt.exe openurl %1'
   end
-  object Edit2: TEdit
-    Left = 104
-    Top = 72
-    Width = 121
-    Height = 21
-    TabOrder = 2
-    Text = 'GTBrowser'
-  end
   object Button2: TButton
     Left = 256
     Top = 104
     Width = 137
     Height = 65
     Caption = #35774#32622'(Win7)'
-    TabOrder = 3
+    TabOrder = 2
     OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 408
+    Top = 104
+    Width = 169
+    Height = 65
+    Caption = #35774#32622'(Auto)'
+    TabOrder = 3
+    OnClick = Button3Click
   end
 end

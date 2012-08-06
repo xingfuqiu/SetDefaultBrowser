@@ -10,10 +10,11 @@ type
   TForm1 = class(TForm)
     Button1: TButton;
     Edit1: TEdit;
-    Edit2: TEdit;
     Button2: TButton;
+    Button3: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     function SetDefaultBrowser_Win7(GTBPath: String): Boolean;
     function SetDefaultBrowser_XP(GTBPath: String): Boolean;
@@ -81,6 +82,10 @@ begin
     if Not reg.OpenKey('http\shell\open\ddeexec\Application', True) then Exit;
     reg.WriteString('', 'GTBrowser');
     reg.CloseKey;
+
+    if Not reg.OpenKey('http\shell\open\ddeexec', True) then Exit;
+    reg.WriteString('', '');
+    reg.CloseKey;
     Result := True;
   finally
     reg.Free;
@@ -90,6 +95,26 @@ end;
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   SetDefaultBrowser_Win7(Edit1.Text);
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var
+  lpVersionInformation: TOSVersionInfo;
+begin
+  lpVersionInformation.dwOSVersionInfoSize := SizeOf(TOSVersionInfo);
+  GetVersionEx(lpVersionInformation);
+  if lpVersionInformation.dwMajorVersion = 6 then
+  begin
+    //win7
+    ShowMessage('你的系统是win7');
+    SetDefaultBrowser_Win7(Edit1.Text);
+  end else
+  begin
+    //xp
+    ShowMessage('你的系统是xp');
+    SetDefaultBrowser_XP(Edit1.Text);
+  end;
+  ShowMessage('设置成功!');
 end;
 
 end.
